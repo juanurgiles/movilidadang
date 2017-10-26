@@ -1,0 +1,35 @@
+{
+    "data": [
+        {
+            "nombre": "DIRECTORIO TELEFONICO",
+            "url": "https://www.ucuenca.edu.ec/contactos/srv-dir-telefonico",
+            "foto": "directorio"
+        },
+        {
+            "nombre": "BUSCADOR DOCUMENTAL",
+            "url": "https://www.ucuenca.edu.ec/recursos-y-servicios/buscador-documental",
+            "foto": "documental"
+        },
+        {
+            "nombre": "REGISTRO DE GRADUADOS",
+            "url": "https://sgraduados.ucuenca.edu.ec/",
+            "foto": "graduados"
+        },
+        {
+            "nombre": "SISTEMA DE GESTION DE PROCESOS",
+            "url": "https://procesos.ucuenca.edu.ec/jbpm-console",
+            "foto": "procesos"
+        },
+        {
+            "nombre": "ESIUC",
+            "url": "https://esiuc.ucuenca.edu.ec/eSIUC/Ingreso/login.aspx",
+            "foto": "esiuc"
+        }
+        ,
+        {
+            "nombre": "TRAMITES",
+            "url": "http://localhost:4200/#/tramites",
+            "foto": "tramites"
+        }
+    ]
+}
