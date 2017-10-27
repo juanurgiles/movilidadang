@@ -24,10 +24,10 @@ export class TramitesComponent implements OnInit {
         console.log('test');
         this.movilidad = {} as Movilidad;
         this.movilidad.desplazamientos1 = [];
-        for (var index = 1; index <= 3; index++) {
+        for (let index = 1; index <= 3; index++) {
             const desplazamiento = {} as Desplazamiento;
             desplazamiento.movimiento = index;
-            //desplazamiento.origen= "";
+            // desplazamiento.origen= "";
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
 
         }
@@ -50,7 +50,7 @@ export class TramitesComponent implements OnInit {
     nuevo() {
         const desplazamiento = {} as Desplazamiento;
         desplazamiento.movimiento = this.movilidad.desplazamientos1.length + 1;
-        //desplazamiento.origen= "";
+        // desplazamiento.origen= "";
         this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
     }
     prueba() {

@@ -1,5 +1,5 @@
-<p-tabView >
-    <p-tabPanel header="Desplazamientos" >
+<p-tabView>
+    <p-tabPanel header="Desplazamientos">
         <dynamic-primeng-form [group]="formGroup" [model]="formModel">
             <ng-template modelId="myFormArray" let-group let-index="index" let-context="context">
 
@@ -11,7 +11,7 @@
         </dynamic-primeng-form>
     </p-tabPanel>
 
-    <p-tabPanel header="Motivos de Uso" >
+    <p-tabPanel header="Motivos de Uso">
         <h4>DATOS SOBRE DESPLAZAMIENTOS
         </h4>
         <p> 1. Un desplazamiento se considera a los movimientos que realiza desde su lugar de origen hasta su destino final.
@@ -23,72 +23,85 @@
         </p>
         <p-growl [value]="msgs"></p-growl>
         <button pButton type="button" label="Añadir otro tipo de desplazamiento" (click)="nuevo()"></button>
-        
-<p>1. Seleccione  los días en los que se desplaza  y el detalle del deplazamiento</p>
-<p-checkbox name="groupname" label="Lunes" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
-<p-checkbox name="groupname" label="Martes" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
-<p-checkbox name="groupname" label="Miercoles" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
-<p-checkbox name="groupname" label="Jueves" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
-<p-checkbox name="groupname" label="Viernes" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
-<p-checkbox name="groupname" label="Sabado" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
-<p-tabView >
-    <p-tabPanel header="Desplazamiento 1" [selected]="true">
-        <p-dataTable [value]="movilidad.desplazamientos1" [editable]="true">
-            <p-column field="movimiento" header="Movimiento"></p-column>
-            <p-column  field="fin" header="Origen">
-                <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
-                    <p-dropdown [(ngModel)]="movilidad.desplazamientos1[i].origen" [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
-                        required="true" appendTo="body"></p-dropdown>
-                </ng-template>
-            </p-column>
-            <p-column field="inicio" header="Hora Aprox. de Inicio">
-                <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
 
-                    <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
 
-                </ng-template>
-            </p-column>
-            <p-column field="destino" header="Destino">
-                <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
-                    <p-dropdown [(ngModel)]="movilidad.desplazamientos1[i].destino" [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
-                        required="true" appendTo="body"></p-dropdown>
-                </ng-template>
-            </p-column>
-            <p-column  field="fin" header="Hora Aprox. de Fin">
-                <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
+        <p-tabView>
+            <p-tabPanel header="Desplazamiento 1" [selected]="true">
+                <p-fieldset>
 
-                    <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].fin" [timeOnly]="true"></p-calendar>
+                    <p>1. Seleccione los días en los que se desplaza y el detalle del deplazamiento</p>
+                    <p-checkbox name="groupname" label="Lunes" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-checkbox name="groupname" label="Martes" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-checkbox name="groupname" label="Miercoles" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-checkbox name="groupname" label="Jueves" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-checkbox name="groupname" label="Viernes" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-checkbox name="groupname" label="Sabado" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
+                    <p-dataTable [value]="movilidad.desplazamientos1" [editable]="true">
+                        <p-column field="movimiento" header="Movimiento"></p-column>
+                        <p-column field="fin" header="Origen">
+                            <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
+                                <p-dropdown [(ngModel)]="movilidad.desplazamientos1[i].origen" [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
+                                    required="true" appendTo="body"></p-dropdown>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="inicio" header="Hora Aprox. de Inicio">
+                            <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
 
-                </ng-template>
-            </p-column>
-            <p-column field="color" header="Datos Adicionales">
-                <ng-template let-col let-car="rowData" pTemplate="body">
-                    <span [style.color]="car[col.field]">{{car[col.field]}}</span>
-                </ng-template>
-            </p-column>
+                                <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
 
-            <ng-template pTemplate="header">
-               
-            </ng-template>
-        </p-dataTable>    </p-tabPanel>
-     <p-tabPanel header="Desplazamiento 2">
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+                            </ng-template>
+                        </p-column>
+                        <p-column field="destino" header="Destino">
+                            <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
+                                <p-dropdown [(ngModel)]="movilidad.desplazamientos1[i].destino" [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
+                                    required="true" appendTo="body"></p-dropdown>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="fin" header="Hora Aprox. de Fin">
+                            <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
+
+                                <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].fin" [timeOnly]="true"></p-calendar>
+
+                            </ng-template>
+                        </p-column>
+                        <p-column field="color" header="Datos Adicionales">
+                            <ng-template let-col let-car="rowData" pTemplate="body">
+                                <span [style.color]="car[col.field]">{{car[col.field]}}</span>
+                            </ng-template>
+                        </p-column>
+
+                        <ng-template pTemplate="header">
+
+                        </ng-template>
+                    </p-dataTable>
+                    <button pButton type="button" label="Nuevo" (click)="nuevo()"></button>
+                </p-fieldset>
+            </p-tabPanel>
+            <p-tabPanel header="Desplazamiento 2">
+                Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito
+                Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side
+                of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the
+                local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing
+                brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's
+                business. With Fanucci gone, Vito's communal stature grows.
+            </p-tabPanel>
+            <p-tabPanel header="Desplazamiento 3">
+                After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third
+                and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael
+                Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would
+                one day be completely legitimate.
+            </p-tabPanel>
+        </p-tabView>
+
+
+
     </p-tabPanel>
-    <p-tabPanel header="Desplazamiento 3">
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    </p-tabPanel>
-</p-tabView>
-        
-        <button pButton type="button" label="Nuevo" (click)="nuevo()"></button>
 
-
-    </p-tabPanel>
-
-    <p-tabPanel header="Percepción" >
+    <p-tabPanel header="Percepción">
         Content 1
     </p-tabPanel>
 
-    <p-tabPanel header="Varios" >
+    <p-tabPanel header="Varios">
         Content 1
     </p-tabPanel>
 </p-tabView>
