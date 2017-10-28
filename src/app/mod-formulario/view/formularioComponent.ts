@@ -18,15 +18,24 @@ import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/c
 export class TramitesComponent implements OnInit {
     movilidad: Movilidad;
     origenes: SelectItem[];
+    medios: SelectItem[];
+    viajacomo: SelectItem[];
+    estacionaen: SelectItem[];
+
+
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
         private confirmationService: ConfirmationService, private storage: SessionStorageService,
         private formService: DynamicFormService) {
         console.log('test');
         this.movilidad = {} as Movilidad;
         this.movilidad.desplazamientos1 = [];
+        this.medios = [];
+        this.viajacomo = [];
+        this.estacionaen = [];
         for (let index = 1; index <= 3; index++) {
             const desplazamiento = {} as Desplazamiento;
             desplazamiento.movimiento = index;
+            //            desplazamiento.medio;
             // desplazamiento.origen= "";
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
 
@@ -43,6 +52,23 @@ export class TramitesComponent implements OnInit {
         this.origenes.push({ label: 'Campus Balsay', value: 'Campus Balsay' });
         this.origenes.push({ label: 'Parada de bus', value: 'Parada de bus' });
         this.origenes.push({ label: 'Otro', value: 'Otro' });
+
+        this.medios.push({ label: 'Seleccione un medio de transporte', value: null });
+
+        this.medios.push({ label: 'A pie', value: 'A pie' });
+        this.medios.push({ label: 'Vehículo privado', value: 'Vehículo privado' });
+        this.medios.push({ label: 'Bus', value: 'Bus' });
+        this.medios.push({ label: 'Taxi', value: 'Taxi' });
+        this.medios.push({ label: 'Bicicleta', value: 'Bicicleta' });
+        this.medios.push({ label: 'Motocicleta', value: 'Motocicleta' });
+        this.medios.push({ label: 'Otro', value: 'Otro' });
+        
+
+        this.viajacomo.push({ label: 'Pasajero', value: 'Pasajero' });
+        this.viajacomo.push({ label: 'Conductor', value: 'Conductor' });
+
+        this.estacionaen.push({ label: 'Parqueaderos de la Universidad', value: 'Parqueaderos de la Universidad' });
+        this.estacionaen.push({ label: 'Alrededores de la Universidad', value: 'Alrededores de la Universidad' });
 
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;

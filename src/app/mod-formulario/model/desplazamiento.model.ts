@@ -4,6 +4,5 @@ export interface Desplazamiento {
     inicio?;
     destino?;
     fin?;
-    
-
-}
+    medio?;
+    }

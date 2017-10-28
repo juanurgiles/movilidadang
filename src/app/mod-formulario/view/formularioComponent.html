@@ -47,7 +47,7 @@
                         <p-column field="inicio" header="Hora Aprox. de Inicio">
                             <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
 
-                                <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
+                                <p-calendar stepMinute="5"  [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
 
                             </ng-template>
                         </p-column>
@@ -64,9 +64,88 @@
 
                             </ng-template>
                         </p-column>
-                        <p-column field="color" header="Datos Adicionales">
-                            <ng-template let-col let-car="rowData" pTemplate="body">
-                                <span [style.color]="car[col.field]">{{car[col.field]}}</span>
+                        <p-column field="fin" header="Medio de transporte">
+                            <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
+
+                                <p-dropdown [(ngModel)]="movilidad.desplazamientos1[i].medio" [options]="medios" autoWidth="false" [style]="{'width':'100%'}"
+                                    required="true" appendTo="body"></p-dropdown>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="medio" header="Datos Adicionales">
+                            <ng-template let-col let-i="rowIndex" let-car="rowData" pTemplate="body">
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='A pie'" [style.color]="car[col.field]">ninguno</span>
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='Bus'" [style.color]="car[col.field]">
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Linea de bus</label>
+                                        <input id="float-input" type="text" size="30" pInputText>
+
+                                    </span>
+
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Parada de Origen</label>
+                                        <input id="float-input" type="text" size="30" pInputText>
+
+                                    </span>
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Parada de Destino</label>
+                                        <input id="float-input" type="text" size="30" pInputText>
+
+                                    </span>
+                                </span>
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='Vehículo privado'" [style.color]="car[col.field]">
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Viaja como</label>
+                                        <p-dropdown [options]="viajacomo" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                    </span>
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Se estaciona en:</label>
+                                        <p-dropdown [options]="estacionaen" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                    </span>
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Tiempo requerido para encontrar un parqueo:</label>
+                                        <input id="float-input" type="number" size="30" pInputText>
+
+                                    </span>
+                                    <span class="ui-fluid">
+                                        <label for="float-input">El vehículo es de propiedad de la Universidad de Cuenca:</label>
+                                        <p-inputSwitch onLabel="Sí" offLabel="No" [(ngModel)]="checked"></p-inputSwitch>
+
+
+                                    </span>
+
+
+                                </span>
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='Taxi'" [style.color]="car[col.field]">
+                                    <span class="ui-fluid">
+                                        <label for="float-input">¿Viaja solo?</label>
+                                        <p-dropdown [options]="viajacomo" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                        <p-inputSwitch onLabel="Sí" offLabel="No" [(ngModel)]="checked"></p-inputSwitch>
+
+                                    </span>
+
+
+
+                                </span>
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='Bicicleta' || movilidad.desplazamientos1[i].medio=='Motocicleta'" [style.color]="car[col.field]">
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Se estaciona en:</label>
+                                        <p-dropdown [options]="estacionaen" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                    </span>
+
+
+
+                                </span>
+
+                                <span *ngIf="movilidad.desplazamientos1[i].medio=='Otro'" [style.color]="car[col.field]">
+                                        <span class="ui-fluid">
+                                                <label for="float-input">Indique el medio de transporte:</label>
+                                                <input id="float-input" type="text" size="30" pInputText>
+        
+                                            </span>
+    
+    
+                                    </span>
+                              
                             </ng-template>
                         </p-column>
 
