@@ -21,7 +21,8 @@ export class TramitesComponent implements OnInit {
     medios: SelectItem[];
     viajacomo: SelectItem[];
     estacionaen: SelectItem[];
-
+    timeinicio = new Date(2005, 1, 4, 5);
+    timefin = new Date(2005, 1, 4, 23);
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
         private confirmationService: ConfirmationService, private storage: SessionStorageService,
@@ -62,7 +63,7 @@ export class TramitesComponent implements OnInit {
         this.medios.push({ label: 'Bicicleta', value: 'Bicicleta' });
         this.medios.push({ label: 'Motocicleta', value: 'Motocicleta' });
         this.medios.push({ label: 'Otro', value: 'Otro' });
-        
+
 
         this.viajacomo.push({ label: 'Pasajero', value: 'Pasajero' });
         this.viajacomo.push({ label: 'Conductor', value: 'Conductor' });

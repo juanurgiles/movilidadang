@@ -47,7 +47,7 @@
                         <p-column field="inicio" header="Hora Aprox. de Inicio">
                             <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
 
-                                <p-calendar stepMinute="5"  [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
+                                <p-calendar stepMinute="5" minDate="{{timeinicio}}" maxDate="{{timefin}}" [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
 
                             </ng-template>
                         </p-column>
