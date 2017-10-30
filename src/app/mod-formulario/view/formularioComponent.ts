@@ -4,8 +4,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Movilidad } from '../model/movilidad';
-import { Desplazamiento } from '../model/desplazamiento.model';
+import { Movilidad, Desplazamiento, Link, Task } from '../model/models';
 
 declare var jQuery: any;
 declare var $: any;
@@ -21,9 +20,9 @@ export class TramitesComponent implements OnInit {
     medios: SelectItem[];
     viajacomo: SelectItem[];
     estacionaen: SelectItem[];
-    timeinicio = new Date(2005, 1, 4, 5);
-    timefin = new Date(2005, 1, 4, 23);
-
+    timeinicio = new Date(2005, 1, 4, 5,0);
+    timefin = new Date(2005, 1, 4, 23,60);
+    datasource:any;
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
         private confirmationService: ConfirmationService, private storage: SessionStorageService,
         private formService: DynamicFormService) {
@@ -36,6 +35,8 @@ export class TramitesComponent implements OnInit {
         for (let index = 1; index <= 3; index++) {
             const desplazamiento = {} as Desplazamiento;
             desplazamiento.movimiento = index;
+            desplazamiento.inicio  = new Date(2005, 1, 4, 5,0);
+            desplazamiento.fin  = new Date(2005, 1, 4, 5,0);
             //            desplazamiento.medio;
             // desplazamiento.origen= "";
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
@@ -71,6 +72,7 @@ export class TramitesComponent implements OnInit {
         this.estacionaen.push({ label: 'Parqueaderos de la Universidad', value: 'Parqueaderos de la Universidad' });
         this.estacionaen.push({ label: 'Alrededores de la Universidad', value: 'Alrededores de la Universidad' });
 
+        
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;

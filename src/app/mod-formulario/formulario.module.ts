@@ -12,6 +12,9 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsPrimeNGUIModule } from '@ng-dynamic-forms/ui-primeng';
 
 import { TramitesComponent } from './view/formularioComponent';
+import {GanttComponent} from "../gantt.component";
+import {LinkService} from "./service/link.service";
+import {TaskService} from "./service/task.service";
 
 const routes: Routes = [
   {
@@ -46,10 +49,12 @@ const routes: Routes = [
     ToggleButtonModule,
     ConfirmDialogModule,
     TabViewModule,
-    InputSwitchModule
+    InputSwitchModule,
+    
   ],
   declarations: [
     TramitesComponent,
+    GanttComponent
   ],
   providers: [
     ConfirmationService,

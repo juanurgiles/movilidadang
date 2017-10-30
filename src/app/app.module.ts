@@ -75,10 +75,13 @@ import {CalendarModule} from 'primeng/primeng';
 //import {TreeTableModule} from 'primeng/primeng';
 import {CaptchaModule} from 'primeng/primeng';
 import {AppComponent}  from './app.component';
-
+import {LinkService} from "./mod-formulario/service/link.service";
+import {TaskService} from "./mod-formulario/service/task.service";
 
 //import { KeysPipe } from './login/pipe/forobj.pipe'; // import our pipe here
 import { NgxPermissionsModule } from 'ngx-permissions';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService}  from './mod-formulario/service/in-memory-data.service'
 
 @NgModule({
     imports: [
@@ -145,7 +148,9 @@ import { NgxPermissionsModule } from 'ngx-permissions';
         Ng2Webstorage,
         CaptchaModule,
         BusyModule,
-        NgxPermissionsModule.forRoot()
+        NgxPermissionsModule.forRoot(),
+        
+        InMemoryWebApiModule.forRoot(InMemoryDataService)
     ],
     declarations: [
         AppComponent,
@@ -155,7 +160,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
         providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         { provide: LOCALE_ID, useValue: "es-EC" },
-         
+         TaskService,
+         LinkService
 
     ],
     bootstrap:[AppComponent]
