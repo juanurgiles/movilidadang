@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Link} from "../model/models";
-import {Http} from "@angular/http";
-import {ExtractData, HandleError} from "./service-helper";
+import { Injectable } from "@angular/core";
+import { Link } from "../model/models";
+import { Http } from "@angular/http";
+import { ExtractData, HandleError } from "./service-helper";
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,11 +9,11 @@ import 'rxjs/add/operator/toPromise';
 export class LinkService {
 	private linkUrl = "api/links";
 
-	constructor(private http: Http) {}
+	constructor(private http: Http) { }
 
 	get() {
 		let links = [
-			{id: 1, source: 1, target: 2, type: "0"}
+			//{ id: 1, source: 1, target: 2, type: "0" }
 		];
 		return links;
 	}

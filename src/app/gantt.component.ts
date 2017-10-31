@@ -43,7 +43,7 @@ export class GanttComponent implements OnInit {
 		//gantt.init("gantt_here");
 		
 			gantt.templates.rightside_text = function(start, end, task){
-				return "ID: #" + task.prueba;
+				return "<img src='assets/images/bus.png' width='15'>ID: #" + task.prueba;
 			};
 		
 			gantt.templates.leftside_text = function(start, end, task){
