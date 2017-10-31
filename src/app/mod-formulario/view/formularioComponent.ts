@@ -42,13 +42,13 @@ export class TramitesComponent implements OnInit {
             desplazamiento.id = index;
 
             desplazamiento.inicio = new Date(2005, 1, 4, 5, 0);
-            desplazamiento.fin = new Date(2005, 1, 4, 5, 0);
+            desplazamiento.fin = new Date(2005, 1, 4, 5, 5);
             desplazamiento.start_date = this.datePipe.transform(new Date(2005, 1, 4, 5, 0), 'dd-MM-yy');
             //            desplazamiento.medio;
             // desplazamiento.origen= "";
-            desplazamiento.duration = (desplazamiento.fin.diff(desplazamiento.inicio, 'minutes'));
+            desplazamiento.duration = 5;
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
-            this.ganttContainer.serializeTask(desplazamiento,true);
+
         }
         console.log(this.movilidad.desplazamientos1);
         this.origenes = [];
@@ -95,6 +95,21 @@ export class TramitesComponent implements OnInit {
     }
     ngOnInit() {
         this.formGroup = this.formService.createFormGroup(this.formModel);
+        const tasks = [
+            { id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' },
+            { id: 2, text: 'Lunes', start_date: '2017-11-28 07:20', duration: 30, progress: 0.4 },
+            { id: 3, text: 'Lunes', start_date: '2017-11-28 06:35', duration: 50, progress: 0.6 },
+            { id: 4, text: 'Lunes', start_date: '2017-11-28 08:25', duration: 10, progress: 0.4 },
+            { id: 5, text: 'Martes', start_date: '2017-11-28 09:15', duration: 20, progress: 0.6 },
+            { id: 6, text: 'Martes', start_date: '2017-11-28 16:10', duration: 600, progress: 0.4 },
+            { id: 7, text: 'Martes', start_date: '2017-11-28 18:20', duration: 300, progress: 0.6 },
+            { id: 8, text: 'Martes', start_date: '2017-11-28 20:30', duration: 600, progress: 0.4 },
+        ];
+        let links = [
+			//{ id: 1, source: 1, target: 2, type: "0" }
+		];
+        //this.ganttContainer.cargar(tasks, links);
+        //this.ganttContainer.
     }
 
 

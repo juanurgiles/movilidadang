@@ -37,7 +37,7 @@ export class GanttComponent implements OnInit {
 		gantt.config.scale_unit = 'hour';
 		gantt.config.duration_unit = 'minute';
 		gantt.config.date_scale = '%H:%i';
-		gantt.config.readonly = true;
+		//gantt.config.readonly = true;
 		gantt.config.details_on_create = true;
 		gantt.config.autofit = false;
 		gantt.config.step = 1;
@@ -95,7 +95,9 @@ export class GanttComponent implements OnInit {
 				gantt.parse({ data, links });
 			});
 	}
-
+	public cargar(data: any, links?: any) {
+		gantt.parse({ data, links });
+	}
 	public serializeTask(data: any, insert: boolean = false): Task {
 		return this.serializeItem(data, insert) as Task;
 	}

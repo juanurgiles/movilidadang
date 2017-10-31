@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -12,9 +12,9 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsPrimeNGUIModule } from '@ng-dynamic-forms/ui-primeng';
 
 import { TramitesComponent } from './view/formularioComponent';
-import {GanttComponent} from "../gantt.component";
-import {LinkService} from "./service/link.service";
-import {TaskService} from "./service/task.service";
+import { GanttComponent } from "../gantt.component";
+import { LinkService } from "./service/link.service";
+import { TaskService } from "./service/task.service";
 
 const routes: Routes = [
   {
@@ -50,7 +50,7 @@ const routes: Routes = [
     ConfirmDialogModule,
     TabViewModule,
     InputSwitchModule,
-    
+
   ],
   declarations: [
     TramitesComponent,
@@ -58,6 +58,7 @@ const routes: Routes = [
   ],
   providers: [
     ConfirmationService,
+    DatePipe
   ],
   exports: [
 
