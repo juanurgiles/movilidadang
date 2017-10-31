@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem, MenuItem, Message, ConfirmationService, PanelModule } from 'primeng/primeng';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +10,8 @@ declare var jQuery: any;
 declare var $: any;
 import { MY_FORM_MODEL } from '../model/formulario.model';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
+import { GanttComponent } from '../../gantt.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './formularioComponent.html'
@@ -20,12 +22,14 @@ export class TramitesComponent implements OnInit {
     medios: SelectItem[];
     viajacomo: SelectItem[];
     estacionaen: SelectItem[];
-    timeinicio = new Date(2005, 1, 4, 5,0);
-    timefin = new Date(2005, 1, 4, 23,60);
-    datasource:any;
+    timeinicio = new Date(2005, 1, 4, 5, 0);
+    timefin = new Date(2005, 1, 4, 23, 60);
+    datasource: any;
+    @ViewChild('gantt') ganttContainer: GanttComponent;
+
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
         private confirmationService: ConfirmationService, private storage: SessionStorageService,
-        private formService: DynamicFormService) {
+        private formService: DynamicFormService, private datePipe: DatePipe) {
         console.log('test');
         this.movilidad = {} as Movilidad;
         this.movilidad.desplazamientos1 = [];
@@ -35,12 +39,16 @@ export class TramitesComponent implements OnInit {
         for (let index = 1; index <= 3; index++) {
             const desplazamiento = {} as Desplazamiento;
             desplazamiento.movimiento = index;
-            desplazamiento.inicio  = new Date(2005, 1, 4, 5,0);
-            desplazamiento.fin  = new Date(2005, 1, 4, 5,0);
+            desplazamiento.id = index;
+
+            desplazamiento.inicio = new Date(2005, 1, 4, 5, 0);
+            desplazamiento.fin = new Date(2005, 1, 4, 5, 0);
+            desplazamiento.start_date = this.datePipe.transform(new Date(2005, 1, 4, 5, 0), 'dd-MM-yy');
             //            desplazamiento.medio;
             // desplazamiento.origen= "";
+            desplazamiento.duration = (desplazamiento.fin.diff(desplazamiento.inicio, 'minutes'));
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
-
+            this.ganttContainer.serializeTask(desplazamiento,true);
         }
         console.log(this.movilidad.desplazamientos1);
         this.origenes = [];
@@ -72,7 +80,7 @@ export class TramitesComponent implements OnInit {
         this.estacionaen.push({ label: 'Parqueaderos de la Universidad', value: 'Parqueaderos de la Universidad' });
         this.estacionaen.push({ label: 'Alrededores de la Universidad', value: 'Alrededores de la Universidad' });
 
-        
+
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;

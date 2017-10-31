@@ -26,12 +26,13 @@ export class GanttComponent implements OnInit {
 	constructor(private taskService: TaskService, private linkService: LinkService) { }
 
 	ngOnInit() {
+
 		gantt.config.xml_date = '%Y-%m-%d %H:%i';
 
 		// gantt.config.readonly = true;
 		gantt.config.start_date = new Date(2017, 11, 22, 5);
 		gantt.config.start_date = new Date(2017, 11, 22, 23);
-		//gantt.config.grid_width = 0;
+		gantt.config.grid_width = 0;
 		gantt.config.date_grid = '%H:%i';
 		gantt.config.scale_unit = 'hour';
 		gantt.config.duration_unit = 'minute';
@@ -41,14 +42,14 @@ export class GanttComponent implements OnInit {
 		gantt.config.autofit = false;
 		gantt.config.step = 1;
 		//gantt.init("gantt_here");
-		
-			gantt.templates.rightside_text = function(start, end, task){
-				return "<img src='assets/images/bus.png' width='15'>ID: #" + task.prueba;
-			};
-		
-			gantt.templates.leftside_text = function(start, end, task){
-				return task.prueba1 + " days";
-			};
+
+		gantt.templates.rightside_text = function (start, end, task) {
+			return "<img src='assets/images/bus.png' width='15'>ID: #" + task.prueba;
+		};
+
+		gantt.templates.leftside_text = function (start, end, task) {
+			return task.prueba1 + " days";
+		};
 		//	gantt.parse(demo_tasks);
 
 		//gantt.config.start_date = new Date(2017, 11, 28,5);
@@ -95,15 +96,15 @@ export class GanttComponent implements OnInit {
 			});
 	}
 
-	private serializeTask(data: any, insert: boolean = false): Task {
+	public serializeTask(data: any, insert: boolean = false): Task {
 		return this.serializeItem(data, insert) as Task;
 	}
 
-	private serializeLink(data: any, insert: boolean = false): Link {
+	public serializeLink(data: any, insert: boolean = false): Link {
 		return this.serializeItem(data, insert) as Link;
 	}
 
-	private serializeItem(data: any, insert: boolean): any {
+	public serializeItem(data: any, insert: boolean): any {
 		var result = {};
 
 		for (let i in data) {
