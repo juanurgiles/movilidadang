@@ -5,4 +5,6 @@ export class Task {
     progress?: number;
     duration?: number;
     parent?: number;
+    prueba?: string;
+    prueba1?:string;
 }
