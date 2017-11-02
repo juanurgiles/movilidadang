@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SelectItem, MenuItem, Message, ConfirmationService, PanelModule } from 'primeng/primeng';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,9 +12,12 @@ import { MY_FORM_MODEL } from '../model/formulario.model';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { GanttComponent } from '../../gantt.component';
 import { DatePipe } from '@angular/common';
+import { LinkService } from '../service/link.service';
+import { TaskService } from '../service/task.service';
 
 @Component({
-    templateUrl: './formularioComponent.html'
+    templateUrl: './formularioComponent.html',
+    styleUrls: ['./formularioComponent.css']
 })
 export class TramitesComponent implements OnInit {
     movilidad: Movilidad;
@@ -25,31 +28,21 @@ export class TramitesComponent implements OnInit {
     timeinicio = new Date(2005, 1, 4, 5, 0);
     timefin = new Date(2005, 1, 4, 23, 60);
     datasource: any;
-    @ViewChild('gantt') ganttContainer: GanttComponent;
+    @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
         private confirmationService: ConfirmationService, private storage: SessionStorageService,
-        private formService: DynamicFormService, private datePipe: DatePipe) {
+        private formService: DynamicFormService, private datePipe: DatePipe,
+        private taskService: TaskService, private linkService: LinkService
+    ) {
         console.log('test');
         this.movilidad = {} as Movilidad;
         this.movilidad.desplazamientos1 = [];
         this.medios = [];
         this.viajacomo = [];
         this.estacionaen = [];
-        for (let index = 1; index <= 3; index++) {
-            const desplazamiento = {} as Desplazamiento;
-            desplazamiento.movimiento = index;
-            desplazamiento.id = index;
 
-            desplazamiento.inicio = new Date(2005, 1, 4, 5, 0);
-            desplazamiento.fin = new Date(2005, 1, 4, 5, 5);
-            desplazamiento.start_date = this.datePipe.transform(new Date(2005, 1, 4, 5, 0), 'dd-MM-yy');
-            //            desplazamiento.medio;
-            // desplazamiento.origen= "";
-            desplazamiento.duration = 5;
-            this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
-
-        }
+       
         console.log(this.movilidad.desplazamientos1);
         this.origenes = [];
 
@@ -84,6 +77,106 @@ export class TramitesComponent implements OnInit {
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;
+    iniciarGannt() {
+
+
+        gantt.config.xml_date = '%Y-%m-%d %H:%i';
+
+        // gantt.config.readonly = true;
+        gantt.config.start_date = new Date(2017, 11, 22, 5);
+        gantt.config.start_date = new Date(2017, 11, 22, 23);
+        gantt.config.grid_width = 0;
+        gantt.config.date_grid = '%H:%i';
+        gantt.config.scale_unit = 'hour';
+        gantt.config.duration_unit = 'minute';
+        gantt.config.date_scale = '%H:%i';
+        //gantt.config.readonly = true;
+        gantt.config.details_on_create = true;
+        gantt.config.grid_resize = true;
+
+        gantt.config.autofit = false;
+        gantt.config.step = 1;
+        //gantt.init("gantt_here");
+
+        gantt.templates.rightside_text = function (start, end, task) {
+            return "<img src='assets/images/bus.png' width='15'>ID: #" + task.prueba;
+        };
+
+        gantt.templates.leftside_text = function (start, end, task) {
+            return task.prueba1 + " days";
+        };
+        //	gantt.parse(demo_tasks);
+
+        //gantt.config.start_date = new Date(2017, 11, 28,5);
+        //	gantt.config.end_date = new Date(2017, 11, 28,23);
+        gantt.init(this.ganttContainer.nativeElement);
+
+        gantt.attachEvent('onAfterTaskAdd', (id, item) => {
+            this.taskService.insert(this.serializeTask(item, true))
+                .then((response) => {
+                    if (response.id != id) {
+                        gantt.changeTaskId(id, response.id);
+                    }
+                });
+        });
+
+        gantt.attachEvent('onAfterTaskUpdate', (id, item) => {
+            this.taskService.update(this.serializeTask(item));
+        });
+
+        gantt.attachEvent('onAfterTaskDelete', (id) => {
+            this.taskService.remove(id);
+        });
+
+        gantt.attachEvent('onAfterLinkAdd', (id, item) => {
+            this.linkService.insert(this.serializeLink(item, true))
+                .then((response) => {
+                    if (response.id != id) {
+                        gantt.changeLinkId(id, response.id);
+                    }
+                });
+        });
+
+        gantt.attachEvent('onAfterLinkUpdate', (id, item) => {
+            this.linkService.update(this.serializeLink(item));
+        });
+
+        gantt.attachEvent('onAfterLinkDelete', (id) => {
+            this.linkService.remove(id);
+        });
+
+        Promise.all([this.taskService.get(), this.linkService.get()])
+            .then(([data, links]) => {
+                //gantt.parse({ data, links });
+            });
+    }
+    public cargar(data: any, links?: any) {
+        gantt.parse({ data, links });
+    }
+    public serializeTask(data: any, insert: boolean = false): Task {
+        return this.serializeItem(data, insert) as Task;
+    }
+
+    public serializeLink(data: any, insert: boolean = false): Link {
+        return this.serializeItem(data, insert) as Link;
+    }
+
+    public serializeItem(data: any, insert: boolean): any {
+        var result = {};
+
+        for (let i in data) {
+            if (i.charAt(0) == '$' || i.charAt(0) == '_') continue;
+            if (insert && i == 'id') continue;
+            if (data[i] instanceof Date) {
+                result[i] = gantt.templates.xml_format(data[i]);
+            }
+            else {
+                result[i] = data[i];
+            }
+        }
+
+        return result;
+    }
     nuevo() {
         const desplazamiento = {} as Desplazamiento;
         desplazamiento.movimiento = this.movilidad.desplazamientos1.length + 1;
@@ -106,12 +199,41 @@ export class TramitesComponent implements OnInit {
             { id: 8, text: 'Martes', start_date: '2017-11-28 20:30', duration: 600, progress: 0.4 },
         ];
         let links = [
-			//{ id: 1, source: 1, target: 2, type: "0" }
-		];
+            //{ id: 1, source: 1, target: 2, type: "0" }
+        ];
         //this.ganttContainer.cargar(tasks, links);
         //this.ganttContainer.
+        this.iniciarGannt();
+        for (let index = 1; index <= 3; index++) {
+            const desplazamiento = {} as Desplazamiento;
+            desplazamiento.movimiento = index;
+            desplazamiento.id = index;
+
+            desplazamiento.inicio = new Date(2005, 1, 4, 5, 0);
+            desplazamiento.fin = new Date(2005, 1, 4, 5, 5);
+            desplazamiento.start_date = this.datePipe.transform(new Date(2005, 1, 4, 5, 0), 'yyyy-MM-dd hh:mm');
+            //            desplazamiento.medio;
+            // desplazamiento.origen= "";
+            desplazamiento.duration = 5;
+            this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
+            let ts:Task = {} as Task;
+            ts.id = index*1;
+            ts.duration = 1;
+            ts.start_date = desplazamiento.start_date;
+            console.log(ts);
+          // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
+        }
+        this.cargar(tasks, links);
     }
 
-
-
+    index; 
+   onTabChange(event){
+       if (event.index*1==1){
+           this.index = true;
+       }
+       else{
+           this.index = false;
+       }
+       console.log(this.index);
+   }
 }

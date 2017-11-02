@@ -1,4 +1,4 @@
-<p-tabView>
+<p-tabView (onChange)="onTabChange($event)" >
     <p-tabPanel header="Información Personal">
         <dynamic-primeng-form [group]="formGroup" [model]="formModel">
             <ng-template modelId="myFormArray" let-group let-index="index" let-context="context">
@@ -177,4 +177,4 @@
         En deasarrollo
     </p-tabPanel>
 </p-tabView>
-<gantt #gantt></gantt>   
+<div [hidden]="!index" #gantt_here style="width: 1500px; height: 100%;"></div>
