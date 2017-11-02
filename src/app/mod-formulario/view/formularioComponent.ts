@@ -28,6 +28,9 @@ export class TramitesComponent implements OnInit {
     timeinicio = new Date(2005, 1, 4, 5, 0);
     timefin = new Date(2005, 1, 4, 23, 60);
     datasource: any;
+    motivospie: any[];
+    movivosbicicleta: any[]
+    princalternativapie: any[];
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
@@ -41,8 +44,52 @@ export class TramitesComponent implements OnInit {
         this.medios = [];
         this.viajacomo = [];
         this.estacionaen = [];
+        this.motivospie = [];
+        this.motivospie.push({ nombre: 'Menor tiempo de viaje' });
+        this.motivospie.push({ nombre: 'Razones Ambientales y/o salud' });
+        this.motivospie.push({ nombre: 'Ahorrar dinero' });
+        this.motivospie.push({ nombre: 'No debo preocuparme por un lugar para estacionar' });
+        this.motivospie.push({ nombre: 'Seguridad' });
+        this.motivospie.push({ nombre: 'Buena infraestructura para caminar en mi ruta' });
+        this.motivospie.push({ nombre: 'Desconocimiento sobre el servicio de transporte público o servicio público deficiente' });
+        this.motivospie.push({ nombre: 'No tengo otra alternativa' });
+        this.motivospie.push({ nombre: 'Confort: oportunidad para socializar, disfrutar el paisaje, etc.' });
+        this.motivospie.push({ nombre: 'Otra razón' });
 
-       
+        this.princalternativapie = [];
+        this.princalternativapie.push({ nombre: 'Compartir vehículo privado' });
+        this.princalternativapie.push({ nombre: 'Motocicleta' });
+        this.princalternativapie.push({ nombre: 'Bus' });
+        this.princalternativapie.push({ nombre: 'Bicicleta' });
+        this.princalternativapie.push({ nombre: 'Taxi' });
+        this.movivosbicicleta = [];
+        this.movivosbicicleta.push({ nombre: 'Menor tiempo de viaje' });
+        this.movivosbicicleta.push({ nombre: 'Razones Ambientales y/ o salud' });
+        this.movivosbicicleta.push({
+            nombre: 'Ahorrar dinero'
+        });
+        this.movivosbicicleta.push({
+            nombre: 'No debo preocuparme por un lugar para estacionar'
+        });
+        this.movivosbicicleta.push({
+            nombre: 'Seguridad'
+        });
+        this.movivosbicicleta.push({
+            nombre: 'No tengo otra alternativa'
+        });
+        this.movivosbicicleta.push({
+            nombre: 'Desconocimiento sobre el servicio de transporte público o servicio público deficiente'
+        });
+
+        this.movivosbicicleta.push({
+            nombre: 'Otra razón. '
+        });
+
+        this.movivosbicicleta.push({
+            nombre: 'Confort'});
+
+        this.motivospie.push({ nombre: 'Vehículo privado' });
+        this.motivospie.push({ nombre: 'Otro medio de transporte.' });
         console.log(this.movilidad.desplazamientos1);
         this.origenes = [];
 
@@ -216,24 +263,24 @@ export class TramitesComponent implements OnInit {
             // desplazamiento.origen= "";
             desplazamiento.duration = 5;
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
-            let ts:Task = {} as Task;
-            ts.id = index*1;
+            let ts: Task = {} as Task;
+            ts.id = index * 1;
             ts.duration = 1;
             ts.start_date = desplazamiento.start_date;
             console.log(ts);
-          // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
+            // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
         }
         this.cargar(tasks, links);
     }
 
-    index; 
-   onTabChange(event){
-       if (event.index*1==1){
-           this.index = true;
-       }
-       else{
-           this.index = false;
-       }
-       console.log(this.index);
-   }
+    index;
+    onTabChange(event) {
+        if (event.index * 1 == 1) {
+            this.index = true;
+        }
+        else {
+            this.index = false;
+        }
+        console.log(this.index);
+    }
 }

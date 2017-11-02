@@ -1,4 +1,4 @@
-<p-tabView (onChange)="onTabChange($event)" >
+<p-tabView (onChange)="onTabChange($event)">
     <p-tabPanel header="Información Personal">
         <dynamic-primeng-form [group]="formGroup" [model]="formModel">
             <ng-template modelId="myFormArray" let-group let-index="index" let-context="context">
@@ -47,7 +47,8 @@
                         <p-column field="inicio" header="Hora Aprox. de Inicio">
                             <ng-template let-col let-car="rowData" let-i="rowIndex" pTemplate="body">
 
-                                <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin" [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio" [timeOnly]="true"></p-calendar>
+                                <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin" [inputStyle]="{'width':'100%'}" [(ngModel)]="movilidad.desplazamientos1[i].inicio"
+                                    [timeOnly]="true"></p-calendar>
 
                             </ng-template>
                         </p-column>
@@ -137,15 +138,15 @@
                                 </span>
 
                                 <span *ngIf="movilidad.desplazamientos1[i].medio=='Otro'" [style.color]="car[col.field]">
-                                        <span class="ui-fluid">
-                                                <label for="float-input">Indique el medio de transporte:</label>
-                                                <input id="float-input" type="text" size="30" pInputText>
-        
-                                            </span>
-    
-    
+                                    <span class="ui-fluid">
+                                        <label for="float-input">Indique el medio de transporte:</label>
+                                        <input id="float-input" type="text" size="30" pInputText>
+
                                     </span>
-                              
+
+
+                                </span>
+
                             </ng-template>
                         </p-column>
 
@@ -156,19 +157,37 @@
                     <button pButton type="button" label="Nuevo" (click)="nuevo()"></button>
                 </p-fieldset>
             </p-tabPanel>
-            
+
             <p-tabPanel header="Desplazamiento 2">
                 En deasarrollo
             </p-tabPanel>
             <p-tabPanel header="Desplazamiento 3">
-               En desarrollo
+                En desarrollo
             </p-tabPanel>
         </p-tabView>
 
     </p-tabPanel>
     <p-tabPanel header="Motivos de Uso">
-        En deasarrollo
-   </p-tabPanel>
+        <p>1. Indique, cuáles de las siguientes razones le motivan a usar A pie como uno de sus medios de transporte preferidos:
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+                <p-listbox [style]="{'width':'100%'}"  class="ui-g-12" multiple="multiple" checkbox="checkbox"  [options]="motivospie" [(ngModel)]="motivospieSel" optionLabel="nombre"></p-listbox>
+                
+          
+        </div>
+        <p>2. ¿Ha considerado cambiar éste medio de transporte para sus viajes hacia y desde la Universidad de Cuenca?</p>
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+            <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+
+        </div>
+        <p>2.1. En caso de haber contestado Si en la pregunta 5. ¿Cuál es la principal alternativa que Ud. ha considerado?</p>
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <div class="ui-g-12" *ngFor="let papie of princalternativapie">
+                        <p-checkbox name="group2" value="mpie" label="{{papie.nombre}}" [(ngModel)]="motivospieSel" inputId="technology"></p-checkbox>
+                    </div>
+
+        </div>
+    </p-tabPanel>
     <p-tabPanel header="Percepción">
         En deasarrollo
     </p-tabPanel>
