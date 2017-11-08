@@ -6,7 +6,7 @@ import {
   ButtonModule, CheckboxModule, MessagesModule, InputTextModule, DataTableModule,
   DialogModule, PanelModule, DropdownModule, RadioButtonModule, CalendarModule, SpinnerModule, GrowlModule,
   PickListModule, FileUploadModule, FieldsetModule, ConfirmDialogModule, ConfirmationService, ToggleButtonModule,
-  TabViewModule, InputSwitchModule, ListboxModule, DragDropModule,OrderListModule
+  TabViewModule, InputSwitchModule, ListboxModule, DragDropModule,OrderListModule, OverlayPanelModule
 } from 'primeng/primeng';
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsPrimeNGUIModule } from '@ng-dynamic-forms/ui-primeng';
@@ -33,6 +33,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     ButtonModule,
     CheckboxModule,
+    OverlayPanelModule,
     MessagesModule,
     DragDropModule,
     InputTextModule,

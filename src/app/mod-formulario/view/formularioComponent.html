@@ -30,12 +30,7 @@
                 <p-fieldset>
 
                     <p>1. Seleccione los días en los que se desplaza y el detalle del deplazamiento</p>
-                    <p-checkbox name="groupname" label="Lunes" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
-                    <p-checkbox name="groupname" label="Martes" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
-                    <p-checkbox name="groupname" label="Miercoles" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
-                    <p-checkbox name="groupname" label="Jueves" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
-                    <p-checkbox name="groupname" label="Viernes" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
-                    <p-checkbox name="groupname" label="Sabado" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
+                    
                     <p-dataTable [value]="movilidad.desplazamientos1" [editable]="true">
                         <p-column field="movimiento" header="Movimiento"></p-column>
                         <p-column field="fin" header="Origen">
@@ -166,16 +161,26 @@
                             </div>
                             <div class="ui-grid-col-6 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)"
                                     [ngClass]="{'ui-state-highlight':draggedCar}">
+                                    <p-checkbox name="groupname" label="Lun" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
+                                    <p-checkbox name="groupname" label="Mar" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
+                                    <p-checkbox name="groupname" label="Mie" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
+                                    <p-checkbox name="groupname" label="Jue" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
+                                    <p-checkbox name="groupname" label="Vie" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
+                                    <p-checkbox name="groupname" label="Sab" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
                                     <p-orderList [value]="ddesplazamientos">
                                         <ng-template let-car pTemplate="item">
                                             <div class="ui-helper-clearfix">
                                                 <img src="assets/images/{{car.img}}" width="30" height="30"/>
+                                                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
                                             </div>
                                         </ng-template>
                                     </p-orderList>
                                
                             </div>
                         </div>
+                        <p-overlayPanel #op3>
+                            prueba
+                        </p-overlayPanel>
                     </div>
                     
                     <button pButton type="button" label="Nuevo" (click)="nuevo()"></button>

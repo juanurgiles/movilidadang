@@ -14,6 +14,7 @@ import { GanttComponent } from '../../gantt.component';
 import { DatePipe } from '@angular/common';
 import { LinkService } from '../service/link.service';
 import { TaskService } from '../service/task.service';
+import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 
 @Component({
     templateUrl: './formularioComponent.html',
@@ -137,6 +138,10 @@ export class TramitesComponent implements OnInit {
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;
+    selectCar(event, car: any, overlaypanel: OverlayPanel) {
+        //this.selectedCar = car;
+        overlaypanel.toggle(event);
+    }
     iniciarGannt() {
 
 
