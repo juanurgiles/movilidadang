@@ -29,8 +29,11 @@ export class TramitesComponent implements OnInit {
     timefin = new Date(2005, 1, 4, 23, 60);
     datasource: any;
     motivospie: any[];
-    movivosbicicleta: any[]
+    movivosbicicleta: any[];
     princalternativapie: any[];
+    sdesplazamientos: any[];
+    ddesplazamientos: any[];
+    desplazamientodrag: any;
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
@@ -86,11 +89,13 @@ export class TramitesComponent implements OnInit {
         });
 
         this.movivosbicicleta.push({
-            nombre: 'Confort'});
+            nombre: 'Confort'
+        });
 
         this.motivospie.push({ nombre: 'Vehículo privado' });
         this.motivospie.push({ nombre: 'Otro medio de transporte.' });
         console.log(this.movilidad.desplazamientos1);
+
         this.origenes = [];
 
         this.origenes.push({ label: 'Selecciona un origen', value: null });
@@ -102,8 +107,16 @@ export class TramitesComponent implements OnInit {
         this.origenes.push({ label: 'Campus Balsay', value: 'Campus Balsay' });
         this.origenes.push({ label: 'Parada de bus', value: 'Parada de bus' });
         this.origenes.push({ label: 'Otro', value: 'Otro' });
-
-        this.medios.push({ label: 'Seleccione un medio de transporte', value: null });
+        this.ddesplazamientos = [];
+        this.sdesplazamientos = [];
+        this.sdesplazamientos.push({ label: 'A pie', value: 'A pie', img: 'walk.png' });
+        this.sdesplazamientos.push({ label: 'Vehículo privado', value: 'Vehículo privado', img: 'vehiculo.png' });
+        this.sdesplazamientos.push({ label: 'Bus', value: 'Bus', img: 'bus.png' });
+        this.sdesplazamientos.push({ label: 'Taxi', value: 'Taxi', img: 'taxy.png' });
+        this.sdesplazamientos.push({ label: 'Bicicleta', value: 'Bicicleta', img: 'bicycle.png' });
+        this.sdesplazamientos.push({ label: 'Motocicleta', value: 'Motocicleta', img: 'motorcycle.png' });
+        this.sdesplazamientos.push({ label: 'Otro', value: 'Otro', img: 'question.png' });
+        this.sdesplazamientos.push({ label: 'Seleccione un medio de transporte', value: null });
 
         this.medios.push({ label: 'A pie', value: 'A pie' });
         this.medios.push({ label: 'Vehículo privado', value: 'Vehículo privado' });
@@ -156,47 +169,81 @@ export class TramitesComponent implements OnInit {
 
         //gantt.config.start_date = new Date(2017, 11, 28,5);
         //	gantt.config.end_date = new Date(2017, 11, 28,23);
-        gantt.init(this.ganttContainer.nativeElement);
+        if (this.ganttContainer) {
+            gantt.init(this.ganttContainer.nativeElement);
 
-        gantt.attachEvent('onAfterTaskAdd', (id, item) => {
-            this.taskService.insert(this.serializeTask(item, true))
-                .then((response) => {
-                    if (response.id != id) {
-                        gantt.changeTaskId(id, response.id);
-                    }
-                });
-        });
-
-        gantt.attachEvent('onAfterTaskUpdate', (id, item) => {
-            this.taskService.update(this.serializeTask(item));
-        });
-
-        gantt.attachEvent('onAfterTaskDelete', (id) => {
-            this.taskService.remove(id);
-        });
-
-        gantt.attachEvent('onAfterLinkAdd', (id, item) => {
-            this.linkService.insert(this.serializeLink(item, true))
-                .then((response) => {
-                    if (response.id != id) {
-                        gantt.changeLinkId(id, response.id);
-                    }
-                });
-        });
-
-        gantt.attachEvent('onAfterLinkUpdate', (id, item) => {
-            this.linkService.update(this.serializeLink(item));
-        });
-
-        gantt.attachEvent('onAfterLinkDelete', (id) => {
-            this.linkService.remove(id);
-        });
-
-        Promise.all([this.taskService.get(), this.linkService.get()])
-            .then(([data, links]) => {
-                //gantt.parse({ data, links });
+            gantt.attachEvent('onAfterTaskAdd', (id, item) => {
+                this.taskService.insert(this.serializeTask(item, true))
+                    .then((response) => {
+                        if (response.id != id) {
+                            gantt.changeTaskId(id, response.id);
+                        }
+                    });
             });
+
+            gantt.attachEvent('onAfterTaskUpdate', (id, item) => {
+                this.taskService.update(this.serializeTask(item));
+            });
+
+            gantt.attachEvent('onAfterTaskDelete', (id) => {
+                this.taskService.remove(id);
+            });
+
+            gantt.attachEvent('onAfterLinkAdd', (id, item) => {
+                this.linkService.insert(this.serializeLink(item, true))
+                    .then((response) => {
+                        if (response.id != id) {
+                            gantt.changeLinkId(id, response.id);
+                        }
+                    });
+            });
+
+            gantt.attachEvent('onAfterLinkUpdate', (id, item) => {
+                this.linkService.update(this.serializeLink(item));
+            });
+
+            gantt.attachEvent('onAfterLinkDelete', (id) => {
+                this.linkService.remove(id);
+            });
+
+            Promise.all([this.taskService.get(), this.linkService.get()])
+                .then(([data, links]) => {
+                    //gantt.parse({ data, links });
+                });
+        }
     }
+
+    dragStart(event, car: any) {
+        this.desplazamientodrag = car;
+    }
+
+    drop(event) {
+        console.log(event);
+        if (this.desplazamientodrag) {
+            //let draggedCarIndex = this.findIndex(this.desplazamientodrag);
+            this.ddesplazamientos = [...this.ddesplazamientos, this.desplazamientodrag];
+            console.log(this.ddesplazamientos);
+            //this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
+            // this.draggedCar = null;
+        }
+    }
+
+    dragEnd(event) {
+        console.log(event);
+        this.desplazamientodrag = null;
+    }
+
+    findIndex(car: any) {
+        let index = -1;
+        for (let i = 0; i < this.sdesplazamientos.length; i++) {
+            if (car.vin === this.sdesplazamientos[i].vin) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     public cargar(data: any, links?: any) {
         gantt.parse({ data, links });
     }
@@ -270,7 +317,7 @@ export class TramitesComponent implements OnInit {
             console.log(ts);
             // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
         }
-        this.cargar(tasks, links);
+       // this.cargar(tasks, links);
     }
 
     index;
