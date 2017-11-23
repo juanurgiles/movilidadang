@@ -35,6 +35,7 @@ export class TramitesComponent implements OnInit {
     sdesplazamientos: any[];
     ddesplazamientos: any[];
     desplazamientodrag: any;
+    val: number;
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,

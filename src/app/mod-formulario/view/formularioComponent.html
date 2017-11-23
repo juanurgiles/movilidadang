@@ -159,7 +159,8 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="ui-grid-col-6 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)"
+                            
+                            <div class="ui-grid-col-3 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)"
                                     [ngClass]="{'ui-state-highlight':draggedCar}">
                                     <p-checkbox name="groupname" label="Lun" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
                                     <p-checkbox name="groupname" label="Mar" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
@@ -176,6 +177,55 @@
                                         </ng-template>
                                     </p-orderList>
                                
+                            </div>
+                            <div class="ui-grid-col-3 ui-widget-content">
+                                <div class="ui-grid ui-grid-responsive ui-fluid">
+                                    <div class="ui-grid-row">
+                                      <div class="ui-grid-col-4">
+                                        <label for="pnombre">ORIGEN</label>
+                                      </div>
+                                      <div class="ui-grid-col-8">
+                                        <span class="ui-fluid">
+                                            <p-dropdown  [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
+                                            required="true" appendTo="body"></p-dropdown>
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div class="ui-grid-row">
+                                        <div class="ui-grid-col-4">
+                                          <label for="pnombre">DESTINO</label>
+                                        </div>
+                                        <div class="ui-grid-col-8">
+                                          <span class="ui-fluid">
+                                            {{postulacion?.institucionOrigen?.nombre}}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div class="ui-grid-row">
+                                        <div class="ui-grid-col-4">
+                                          <label for="pnombre">HORA</label>
+                                        </div>
+                                        <div class="ui-grid-col-8">
+                                          <span class="ui-fluid">
+                                            <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin"
+                                             [inputStyle]="{'width':'100%'}" 
+                                            [timeOnly]="true"></p-calendar>
+        
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div class="ui-grid-row">
+                                        <div class="ui-grid-col-4">
+                                          <label for="pnombre">TIEMPO MINUTOS</label>
+                                        </div>
+                                        <div class="ui-grid-col-8">
+                                          <span >
+                                            <p-slider [(ngModel)]="val" [step]="5" [min]="0" [max]="60"></p-slider>
+                                            
+                                          </span>
+                                        </div>
+                                      </div>
+                                </div>
                             </div>
                         </div>
                         <p-overlayPanel #op3>

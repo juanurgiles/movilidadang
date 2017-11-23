@@ -12,5 +12,5 @@ export interface Desplazamiento {
     duration?: number;
     parent?: number;
     prueba?: string;
-    prueba1?:string;
-    }
+    prueba1?: string;
+}
