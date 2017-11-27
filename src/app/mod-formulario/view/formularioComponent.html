@@ -30,7 +30,7 @@
                 <p-fieldset>
 
                     <p>1. Seleccione los días en los que se desplaza y el detalle del deplazamiento</p>
-                    
+
                     <p-dataTable [value]="movilidad.desplazamientos1" [editable]="true">
                         <p-column field="movimiento" header="Movimiento"></p-column>
                         <p-column field="fin" header="Origen">
@@ -153,78 +153,76 @@
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-1 ui-widget-content" style="border-right:0 none">
                                 <ul style="margin:0;padding:0">
-                                    <li *ngFor="let car of sdesplazamientos" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
-                                        (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
+                                    <li *ngFor="let car of sdesplazamientos" class="ui-state-default ui-helper-clearfix" pDraggable="cars" (onDragStart)="dragStart($event,car)"
+                                        (onDragEnd)="dragEnd($event)">
                                         <img src="assets/images/{{car.img}}" width="20">
                                     </li>
                                 </ul>
                             </div>
-                            
-                            <div class="ui-grid-col-3 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)"
-                                    [ngClass]="{'ui-state-highlight':draggedCar}">
-                                    <p-checkbox name="groupname" label="Lun" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-checkbox name="groupname" label="Mar" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-checkbox name="groupname" label="Mie" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-checkbox name="groupname" label="Jue" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-checkbox name="groupname" label="Vie" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-checkbox name="groupname" label="Sab" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
-                                    <p-orderList [value]="ddesplazamientos">
-                                        <ng-template let-car pTemplate="item">
-                                            <div class="ui-helper-clearfix">
-                                                <img src="assets/images/{{car.img}}" width="30" height="30"/>
-                                                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
-                                            </div>
-                                        </ng-template>
-                                    </p-orderList>
-                               
+
+                            <div class="ui-grid-col-3 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)" [ngClass]="{'ui-state-highlight':draggedCar}">
+                                <p-checkbox name="groupname" label="Lun" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Mar" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Mie" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Jue" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Vie" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Sab" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
+
+                                <ul>
+                                    <li *ngFor="let desp of ddesplazamientos; let i = index">
+                                        <div class="ui-helper-clearfix">
+                                            05:00...
+                                            <img src="assets/images/{{desp.img}}" width="30" height="30" /> ....05:05
+                                            <button type="button" (click)="seleccionar(i)" pButton icon="fa-search"></button>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="ui-grid-col-3 ui-widget-content">
+                            <div *ngIf="desplazamientosel" class="ui-grid-col-3 ui-widget-content">
                                 <div class="ui-grid ui-grid-responsive ui-fluid">
+                                    <h4>DESPLAZAMIENTO {{indexDesplazamientosel}}</h4>
                                     <div class="ui-grid-row">
-                                      <div class="ui-grid-col-4">
-                                        <label for="pnombre">ORIGEN</label>
-                                      </div>
-                                      <div class="ui-grid-col-8">
-                                        <span class="ui-fluid">
-                                            <p-dropdown  [options]="origenes" autoWidth="false" [style]="{'width':'100%'}"
-                                            required="true" appendTo="body"></p-dropdown>
-                                        </span>
-                                      </div>
+                                        <div class="ui-grid-col-4">
+                                            <label for="pnombre">ORIGEN</label>
+                                        </div>
+                                        <div class="ui-grid-col-8">
+                                            <span class="ui-fluid">
+                                                <p-dropdown [options]="origenes" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="ui-grid-row">
                                         <div class="ui-grid-col-4">
-                                          <label for="pnombre">DESTINO</label>
+                                            <label for="pnombre">DESTINO</label>
                                         </div>
                                         <div class="ui-grid-col-8">
-                                          <span class="ui-fluid">
-                                            {{postulacion?.institucionOrigen?.nombre}}
-                                          </span>
+                                            <span class="ui-fluid">
+                                                <p-dropdown [options]="origenes" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                            </span>
                                         </div>
-                                      </div>
-                                      <div class="ui-grid-row">
+                                    </div>
+                                    <div class="ui-grid-row">
                                         <div class="ui-grid-col-4">
-                                          <label for="pnombre">HORA</label>
+                                            <label for="pnombre">HORA</label>
                                         </div>
                                         <div class="ui-grid-col-8">
-                                          <span class="ui-fluid">
-                                            <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin"
-                                             [inputStyle]="{'width':'100%'}" 
-                                            [timeOnly]="true"></p-calendar>
-        
-                                          </span>
+                                            <span class="ui-fluid">
+                                                <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin" [inputStyle]="{'width':'100%'}" [timeOnly]="true"></p-calendar>
+
+                                            </span>
                                         </div>
-                                      </div>
-                                      <div class="ui-grid-row">
+                                    </div>
+                                    <div class="ui-grid-row">
                                         <div class="ui-grid-col-4">
-                                          <label for="pnombre">TIEMPO MINUTOS</label>
+                                            <label for="pnombre">TIEMPO MINUTOS</label>
                                         </div>
                                         <div class="ui-grid-col-8">
-                                          <span >
-                                            <p-slider [(ngModel)]="val" [step]="5" [min]="0" [max]="60"></p-slider>
-                                            
-                                          </span>
+                                            <span>
+                                                <p-slider [(ngModel)]="val" [step]="5" [min]="0" [max]="60"></p-slider>
+
+                                            </span>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +230,7 @@
                             prueba
                         </p-overlayPanel>
                     </div>
-                    
+
                     <button pButton type="button" label="Nuevo" (click)="nuevo()"></button>
                 </p-fieldset>
             </p-tabPanel>
@@ -250,9 +248,10 @@
         <p>1. Indique, cuáles de las siguientes razones le motivan a usar A pie como uno de sus medios de transporte preferidos:
         </p>
         <div class="ui-g" style="margin-bottom:10px">
-                <p-listbox [style]="{'width':'100%'}"  class="ui-g-12" multiple="multiple" checkbox="checkbox"  [options]="motivospie" [(ngModel)]="motivospieSel" optionLabel="nombre"></p-listbox>
-                
-          
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="motivospie" [(ngModel)]="motivospieSel"
+                optionLabel="nombre"></p-listbox>
+
+
         </div>
         <p>2. ¿Ha considerado cambiar éste medio de transporte para sus viajes hacia y desde la Universidad de Cuenca?</p>
         <div class="ui-g" style="width:250px;margin-bottom:10px">
@@ -261,9 +260,9 @@
         </div>
         <p>2.1. En caso de haber contestado Si en la pregunta 5. ¿Cuál es la principal alternativa que Ud. ha considerado?</p>
         <div class="ui-g" style="width:250px;margin-bottom:10px">
-                <div class="ui-g-12" *ngFor="let papie of princalternativapie">
-                        <p-checkbox name="group2" value="mpie" label="{{papie.nombre}}" [(ngModel)]="motivospieSel" inputId="technology"></p-checkbox>
-                    </div>
+            <div class="ui-g-12" *ngFor="let papie of princalternativapie">
+                <p-checkbox name="group2" value="mpie" label="{{papie.nombre}}" [(ngModel)]="motivospieSel" inputId="technology"></p-checkbox>
+            </div>
 
         </div>
     </p-tabPanel>

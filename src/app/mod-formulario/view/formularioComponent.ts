@@ -35,6 +35,8 @@ export class TramitesComponent implements OnInit {
     sdesplazamientos: any[];
     ddesplazamientos: any[];
     desplazamientodrag: any;
+    desplazamientosel: Desplazamiento;
+    indexDesplazamientosel;
     val: number;
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
@@ -227,13 +229,21 @@ export class TramitesComponent implements OnInit {
         console.log(event);
         if (this.desplazamientodrag) {
             //let draggedCarIndex = this.findIndex(this.desplazamientodrag);
-            this.ddesplazamientos = [...this.ddesplazamientos, this.desplazamientodrag];
-            console.log(this.ddesplazamientos);
+            let desp: Desplazamiento;
+
+            desp = JSON.parse(JSON.stringify(this.desplazamientodrag));
+            this.ddesplazamientos = [...this.ddesplazamientos, desp];
+            this.desplazamientosel = desp;
+            this.indexDesplazamientosel= this.ddesplazamientos.indexOf(desp); 
+            
             //this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
             // this.draggedCar = null;
         }
     }
-
+    seleccionar(index){
+        this.desplazamientosel = this.ddesplazamientos[index];
+        this.indexDesplazamientosel = index;
+    }
     dragEnd(event) {
         console.log(event);
         this.desplazamientodrag = null;
@@ -323,7 +333,7 @@ export class TramitesComponent implements OnInit {
             console.log(ts);
             // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
         }
-       // this.cargar(tasks, links);
+        // this.cargar(tasks, links);
     }
 
     index;
