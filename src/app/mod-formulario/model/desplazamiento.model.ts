@@ -1,9 +1,9 @@
 export interface Desplazamiento {
     movimiento?;
     origen?;
-    inicio?;
+    inicio?:Date;
     destino?;
-    fin?;
+    fin?: Date;
     medio?;
     id: number;
     start_date: string;

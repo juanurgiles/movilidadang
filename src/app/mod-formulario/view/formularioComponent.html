@@ -169,7 +169,7 @@
                                 <p-checkbox name="groupname" label="Sab" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
 
                                 <ul>
-                                    <li *ngFor="let desp of ddesplazamientos; let i = index">
+                                    <li *ngFor="let desp of movilidad.desplazamientos1; let i = index">
                                         <div class="ui-helper-clearfix">
                                             05:00...
                                             <img src="assets/images/{{desp.img}}" width="30" height="30" /> ....05:05
@@ -187,7 +187,9 @@
                                         </div>
                                         <div class="ui-grid-col-8">
                                             <span class="ui-fluid">
-                                                <p-dropdown [options]="origenes" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                                <p-dropdown [options]="origenes" autoWidth="false" [style]="{'width':'100%'}" 
+                                                [(ngModel)]="this.movilidad.desplazamientos1[indexDesplazamientosel].origen" 
+                                                required="true" appendTo="body"></p-dropdown>
                                             </span>
                                         </div>
                                     </div>
@@ -197,7 +199,8 @@
                                         </div>
                                         <div class="ui-grid-col-8">
                                             <span class="ui-fluid">
-                                                <p-dropdown [options]="origenes" autoWidth="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                                                <p-dropdown [options]="origenes" autoWidth="false"
+                                                [(ngModel)]="this.movilidad.desplazamientos1[indexDesplazamientosel].destino" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
                                             </span>
                                         </div>
                                     </div>
@@ -207,7 +210,8 @@
                                         </div>
                                         <div class="ui-grid-col-8">
                                             <span class="ui-fluid">
-                                                <p-calendar [stepMinute]="5" [minDate]="timeinicio" [maxDate]="timefin" [inputStyle]="{'width':'100%'}" [timeOnly]="true"></p-calendar>
+                                                <p-calendar [stepMinute]="5" [minDate]="timeinicio"
+                                                [(ngModel)]="this.movilidad.desplazamientos1[indexDesplazamientosel].inicio" [maxDate]="timefin" [inputStyle]="{'width':'100%'}" [timeOnly]="true"></p-calendar>
 
                                             </span>
                                         </div>
@@ -218,7 +222,9 @@
                                         </div>
                                         <div class="ui-grid-col-8">
                                             <span>
-                                                <p-slider [(ngModel)]="val" [step]="5" [min]="0" [max]="60"></p-slider>
+                                                {{this.movilidad.desplazamientos1[indexDesplazamientosel].fin | date:'hh:mm'}}
+                                                <p-slider [(ngModel)]="minutos"
+                                                (onChange)="cambio($event)" [step]="5" [min]="0" [max]="60"></p-slider>
 
                                             </span>
                                         </div>
