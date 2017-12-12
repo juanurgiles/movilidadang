@@ -44,7 +44,12 @@ export class TramitesComponent implements OnInit {
     desplazamientosel: Desplazamiento;
     indexDesplazamientosel;
     val: number;
+<<<<<<< HEAD
     minutos: number = 5;
+=======
+    minutos = 5;
+    index;
+>>>>>>> 32c894821419a7a43b0c140620d16e4a39daa1aa
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
@@ -204,12 +209,16 @@ export class TramitesComponent implements OnInit {
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;
     selectCar(event, car: any, overlaypanel: OverlayPanel) {
-        //this.selectedCar = car;
+        // this.selectedCar = car;
         overlaypanel.toggle(event);
     }
     cambio() {
         console.log(this.minutos);
+<<<<<<< HEAD
         //this.movilidad.desplazamientos1[this.indexDesplazamientosel].fin = 
+=======
+        // this.movilidad.desplazamientos1[this.indexDesplazamientosel].fin =
+>>>>>>> 32c894821419a7a43b0c140620d16e4a39daa1aa
         // this.movilidad.desplazamientos1[this.indexDesplazamientosel].inicio;
 
         this.movilidad.desplazamientos1[this.indexDesplazamientosel].fin = new Date(
@@ -229,32 +238,32 @@ export class TramitesComponent implements OnInit {
         gantt.config.scale_unit = 'hour';
         gantt.config.duration_unit = 'minute';
         gantt.config.date_scale = '%H:%i';
-        //gantt.config.readonly = true;
+        // gantt.config.readonly = true;
         gantt.config.details_on_create = true;
         gantt.config.grid_resize = true;
 
         gantt.config.autofit = false;
         gantt.config.step = 1;
-        //gantt.init("gantt_here");
+        // gantt.init('gantt_here');
 
         gantt.templates.rightside_text = function (start, end, task) {
-            return "<img src='assets/images/bus.png' width='15'>ID: #" + task.prueba;
+            return '<img src=\'assets / images / bus.png\' width=\'15\'>ID: #' + task.prueba;
         };
 
         gantt.templates.leftside_text = function (start, end, task) {
-            return task.prueba1 + " days";
+            return task.prueba1 + ' days';
         };
-        //	gantt.parse(demo_tasks);
+        // 	gantt.parse(demo_tasks);
 
-        //gantt.config.start_date = new Date(2017, 11, 28,5);
-        //	gantt.config.end_date = new Date(2017, 11, 28,23);
+        // gantt.config.start_date = new Date(2017, 11, 28,5);
+        // 	gantt.config.end_date = new Date(2017, 11, 28,23);
         if (this.ganttContainer) {
             gantt.init(this.ganttContainer.nativeElement);
 
             gantt.attachEvent('onAfterTaskAdd', (id, item) => {
                 this.taskService.insert(this.serializeTask(item, true))
                     .then((response) => {
-                        if (response.id != id) {
+                        if (response.id !== id) {
                             gantt.changeTaskId(id, response.id);
                         }
                     });
@@ -271,7 +280,7 @@ export class TramitesComponent implements OnInit {
             gantt.attachEvent('onAfterLinkAdd', (id, item) => {
                 this.linkService.insert(this.serializeLink(item, true))
                     .then((response) => {
-                        if (response.id != id) {
+                        if (response.id !== id) {
                             gantt.changeLinkId(id, response.id);
                         }
                     });
@@ -287,7 +296,7 @@ export class TramitesComponent implements OnInit {
 
             Promise.all([this.taskService.get(), this.linkService.get()])
                 .then(([data, links]) => {
-                    //gantt.parse({ data, links });
+                    // gantt.parse({ data, links });
                 });
         }
     }
@@ -299,8 +308,9 @@ export class TramitesComponent implements OnInit {
     drop(event) {
         //console.log(event);
         if (this.desplazamientodrag) {
-            //let draggedCarIndex = this.findIndex(this.desplazamientodrag);
+            // let draggedCarIndex = this.findIndex(this.desplazamientodrag);
             let desp: Desplazamiento;
+<<<<<<< HEAD
             this.minutos = 5;
             desp = JSON.parse(JSON.stringify(this.desplazamientodrag));
             console.log(desp);
@@ -316,15 +326,33 @@ export class TramitesComponent implements OnInit {
                 desp.inicio = this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length - 1].fin;
                 //  console.log(desp.inicio);
                 desp.fin = new Date(desp.inicio.getTime() + this.minutos * 60000);
+=======
+
+            desp = JSON.parse(JSON.stringify(this.desplazamientodrag));
+            console.log(this.movilidad.desplazamientos1.length);
+            if (this.movilidad.desplazamientos1.length === 0) {
+                desp.inicio = new Date(2005, 1, 4, 5, 0);
+                desp.fin = new Date(desp.inicio.getTime() + this.minutos * 60000);
+                desp.origen = 'Residencia';
+            } else {
+                console.log('si');
+                desp.inicio = this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length - 1].fin;
+>>>>>>> 32c894821419a7a43b0c140620d16e4a39daa1aa
                 desp.origen = this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length - 1].destino;
             }
 
             this.movilidad.desplazamientos1 = [...this.movilidad.desplazamientos1, desp];
             this.desplazamientosel = desp;
             this.indexDesplazamientosel = this.movilidad.desplazamientos1.indexOf(desp);
+<<<<<<< HEAD
             //console.log(this.indexDesplazamientosel);
             //console.log(this.movilidad.desplazamientos1);
             //this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
+=======
+            console.log(this.indexDesplazamientosel);
+            console.log(this.movilidad.desplazamientos1);
+            // this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
+>>>>>>> 32c894821419a7a43b0c140620d16e4a39daa1aa
             // this.draggedCar = null;
         }
     }
@@ -360,15 +388,14 @@ export class TramitesComponent implements OnInit {
     }
 
     public serializeItem(data: any, insert: boolean): any {
-        var result = {};
+        const result = {};
 
-        for (let i in data) {
-            if (i.charAt(0) == '$' || i.charAt(0) == '_') continue;
-            if (insert && i == 'id') continue;
+        for (const i in data) {
+            if (i.charAt(0) === '$' || i.charAt(0) === '_') { continue; }
+            if (insert && i === 'id') { continue; }
             if (data[i] instanceof Date) {
                 result[i] = gantt.templates.xml_format(data[i]);
-            }
-            else {
+            } else {
                 result[i] = data[i];
             }
         }
@@ -378,7 +405,7 @@ export class TramitesComponent implements OnInit {
     nuevo() {
         const desplazamiento = {} as Desplazamiento;
         desplazamiento.movimiento = this.movilidad.desplazamientos1.length + 1;
-        // desplazamiento.origen= "";
+        // desplazamiento.origen= '';
         this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
     }
     prueba() {
@@ -396,11 +423,11 @@ export class TramitesComponent implements OnInit {
             { id: 7, text: 'Martes', start_date: '2017-11-28 18:20', duration: 300, progress: 0.6 },
             { id: 8, text: 'Martes', start_date: '2017-11-28 20:30', duration: 600, progress: 0.4 },
         ];
-        let links = [
-            //{ id: 1, source: 1, target: 2, type: "0" }
+        const links = [
+            // { id: 1, source: 1, target: 2, type: '0' }
         ];
-        //this.ganttContainer.cargar(tasks, links);
-        //this.ganttContainer.
+        // this.ganttContainer.cargar(tasks, links);
+        // this.ganttContainer.
         this.iniciarGannt();
         /*
         for (let index = 1; index <= 3; index++) {
@@ -412,7 +439,7 @@ export class TramitesComponent implements OnInit {
             desplazamiento.fin = new Date(2005, 1, 4, 5, 5);
             desplazamiento.start_date = this.datePipe.transform(new Date(2005, 1, 4, 5, 0), 'yyyy-MM-dd hh:mm');
             //            desplazamiento.medio;
-            // desplazamiento.origen= "";
+            // desplazamiento.origen= '';
             desplazamiento.duration = 5;
             this.movilidad.desplazamientos1 = [... this.movilidad.desplazamientos1, desplazamiento];
             let ts: Task = {} as Task;
@@ -420,17 +447,17 @@ export class TramitesComponent implements OnInit {
             ts.duration = 1;
             ts.start_date = desplazamiento.start_date;
             console.log(ts);
-            // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15', duration: 15, progress: 0.6, prueba: 'test' }),[]);
+            // this.cargar(this.serializeTask({ id: 1, text: 'Lunes', start_date: '2017-11-28 06:15',
+            duration: 15, progress: 0.6, prueba: 'test' }),[]);
         }*/
         // this.cargar(tasks, links);
     }
 
-    index;
+
     onTabChange(event) {
-        if (event.index * 1 == 1) {
+        if (event.index * 1 === 1) {
             this.index = true;
-        }
-        else {
+        } else {
             this.index = false;
         }
         console.log(this.index);

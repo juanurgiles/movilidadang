@@ -251,7 +251,9 @@
 
     </p-tabPanel>
     <p-tabPanel header="Motivos de Uso">
+        <div>
         <p>1. Indique, cuáles de las siguientes razones le motivan a usar A pie como uno de sus medios de transporte preferidos:
+        
         </p>
         <div class="ui-g" style="margin-bottom:10px">
             <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="motivospie" [(ngModel)]="motivospieSel"
@@ -271,6 +273,30 @@
             </div>
 
         </div>
+        </div>
+        <div>
+            <p>1. Indique, cuáles de las siguientes razones le motivan a usar A pie como uno de sus medios de transporte preferidos:
+            
+            </p>
+            <div class="ui-g" style="margin-bottom:10px">
+                <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="motivospie" [(ngModel)]="motivospieSel"
+                    optionLabel="nombre"></p-listbox>
+    
+    
+            </div>
+            <p>2. ¿Ha considerado cambiar éste medio de transporte para sus viajes hacia y desde la Universidad de Cuenca?</p>
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+    
+            </div>
+            <p>2.1. En caso de haber contestado Si en la pregunta 5. ¿Cuál es la principal alternativa que Ud. ha considerado?</p>
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <div class="ui-g-12" *ngFor="let papie of princalternativapie">
+                    <p-checkbox name="group2" value="mpie" label="{{papie.nombre}}" [(ngModel)]="motivospieSel" inputId="technology"></p-checkbox>
+                </div>
+    
+            </div>
+            </div>
     </p-tabPanel>
     <p-tabPanel header="Percepción">
         <p> 1. Indique las razones por las que Bus no es uno de sus medio de transporte preferidos 
