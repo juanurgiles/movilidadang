@@ -161,18 +161,18 @@
                             </div>
 
                             <div class="ui-grid-col-3 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)" [ngClass]="{'ui-state-highlight':draggedCar}">
-                                <p-checkbox name="groupname" label="Lun" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
-                                <p-checkbox name="groupname" label="Mar" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
-                                <p-checkbox name="groupname" label="Mie" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
-                                <p-checkbox name="groupname" label="Jue" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
-                                <p-checkbox name="groupname" label="Vie" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
-                                <p-checkbox name="groupname" label="Sab" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Lu" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Ma" value="val2" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Mi" value="val3" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Ju" value="val4" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Vi" value="val5" [(ngModel)]="selectedValues"></p-checkbox>
+                                <p-checkbox name="groupname" label="Sa" value="val6" [(ngModel)]="selectedValues"></p-checkbox>
 
                                 <ul>
                                     <li *ngFor="let desp of movilidad.desplazamientos1; let i = index">
                                         <div class="ui-helper-clearfix">
-                                            05:00...
-                                            <img src="assets/images/{{desp.img}}" width="30" height="30" /> ....05:05
+                                            {{desp.inicio|date:'hh:mm'}}...
+                                            <img src="assets/images/{{desp.img}}" width="30" height="30" /> ...{{desp.fin|date:'hh:mm'}}
                                             <button type="button" (click)="seleccionar(i)" pButton icon="fa-search"></button>
                                         </div>
                                     </li>
@@ -273,7 +273,70 @@
         </div>
     </p-tabPanel>
     <p-tabPanel header="Percepción">
-        En deasarrollo
+        <p> 1. Indique las razones por las que Bus no es uno de sus medio de transporte preferidos 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="buspreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+        <p> 
+            2. Indique las razones por las que Vehículo Privado no es uno de sus medio de transporte preferidos 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="vehiculopreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+        <p> 3. Indique las razones por las que A pie no es uno de sus medio de transporte preferidos 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="piepreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+        <p>     4. Indique las razones por las que Bicicleta no es uno de sus medio de transporte preferidos 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="bicicletapreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+        <p>        5. Indique las razones por las que Motocicleta no es uno de sus medio de transporte preferidos 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="motocicletapreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+        <p>         6. Califique a los medios de transporte de acuerdo a qué, su uso es más o menos beneficioso para usted y su institución
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-dataTable [value]="lmedios">
+                    
+                <p-column field="vin" header=""></p-column>
+                <p-column field="year" header="Muy beneficioso"></p-column>
+                <p-column field="brand" header="Beneficioso"></p-column>
+                <p-column field="color" header="Poco Beneficioso"></p-column>
+                <p-column field="color" header="Perjudicial"></p-column>
+            </p-dataTable>
+            
+
+        </div>
+        <p>        7. Algunos servicios relacionados a la movilidad podrían considerarse en la Universidad de Cuenca, indique el grado de interés que le genera como miembro de la comunidad universitaria: 
+        </p>
+        <div class="ui-g" style="margin-bottom:10px">
+            <p-listbox [style]="{'width':'100%'}" class="ui-g-12" multiple="multiple" checkbox="checkbox" [options]="motocicletapreferido" 
+                optionLabel="label"></p-listbox>
+
+
+        </div>
+       
     </p-tabPanel>
 
     <p-tabPanel header="Varios">

@@ -23,9 +23,15 @@ import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 export class TramitesComponent implements OnInit {
     movilidad: Movilidad;
     origenes: SelectItem[];
+    lmedios:any;
     medios: SelectItem[];
     viajacomo: SelectItem[];
     estacionaen: SelectItem[];
+    buspreferido: SelectItem[];
+    vehiculopreferido: SelectItem[];
+    piepreferido: SelectItem[];
+    bicicletapreferido: SelectItem[];
+    motocicletapreferido: SelectItem[];
     timeinicio = new Date(2005, 1, 4, 5, 0);
     timefin = new Date(2005, 1, 4, 23, 60);
     datasource: any;
@@ -38,7 +44,7 @@ export class TramitesComponent implements OnInit {
     desplazamientosel: Desplazamiento;
     indexDesplazamientosel;
     val: number;
-    minutos: number =5;
+    minutos: number = 5;
     @ViewChild('gantt_here') ganttContainer: ElementRef;
 
     constructor(private fb: FormBuilder, private aroute: ActivatedRoute, private router: Router,
@@ -53,6 +59,7 @@ export class TramitesComponent implements OnInit {
         this.viajacomo = [];
         this.estacionaen = [];
         this.motivospie = [];
+
         this.motivospie.push({ nombre: 'Menor tiempo de viaje' });
         this.motivospie.push({ nombre: 'Razones Ambientales y/o salud' });
         this.motivospie.push({ nombre: 'Ahorrar dinero' });
@@ -123,12 +130,15 @@ export class TramitesComponent implements OnInit {
         this.sdesplazamientos.push({ label: 'Otro', value: 'Otro', img: 'question.png' });
         this.sdesplazamientos.push({ label: 'Seleccione un medio de transporte', value: null });
 
-        this.medios.push({ label: 'A pie', value: 'A pie' });
-        this.medios.push({ label: 'Vehículo privado', value: 'Vehículo privado' });
-        this.medios.push({ label: 'Bus', value: 'Bus' });
-        this.medios.push({ label: 'Taxi', value: 'Taxi' });
-        this.medios.push({ label: 'Bicicleta', value: 'Bicicleta' });
-        this.medios.push({ label: 'Motocicleta', value: 'Motocicleta' });
+        this.lmedios = [ 'A pie', 'Vehículo privado', 'Bus', 'Taxi', 'Bicicleta', 'Motocicleta'];
+
+        this.lmedios.push({ label: 'A pie', value: 'A pie' });
+        this.lmedios.push({ label: 'Vehículo privado', value: 'Vehículo privado' });
+        this.lmedios.push({ label: 'Bus', value: 'Bus' });
+        this.lmedios.push({ label: 'Taxi', value: 'Taxi' });
+        this.lmedios.push({ label: 'Bicicleta', value: 'Bicicleta' });
+        this.lmedios.push({ label: 'Motocicleta', value: 'Motocicleta' });
+        
         this.medios.push({ label: 'Otro', value: 'Otro' });
 
 
@@ -139,6 +149,57 @@ export class TramitesComponent implements OnInit {
         this.estacionaen.push({ label: 'Alrededores de la Universidad', value: 'Alrededores de la Universidad' });
 
 
+        // Inicializando sección 4
+        this.buspreferido = [];
+        this.vehiculopreferido = [];
+        this.piepreferido = [];
+        this.bicicletapreferido = [];
+        this.motocicletapreferido = [];
+        this.buspreferido.push({ label: 'No existe una opción de transporte público hacia la Universidad de Cuenca desde su residencia o desde el lugar de origen  de su desplazamiento', value: '1' });
+        this.buspreferido.push({ label: 'No conoce el funcionamiento del servicio de transporte público', value: '2' });
+        this.buspreferido.push({ label: 'Requiere demasiado tiempo para completar el viaje', value: '3' });
+        this.buspreferido.push({ label: 'Debe realizar cambios de líneas de buses', value: '4' });
+        this.buspreferido.push({ label: 'Inseguridad: alta velocidad, irrespeto señales de tránsito, robos, etc.', value: '5' });
+        this.buspreferido.push({ label: 'Demasiado costoso', value: '6' });
+        this.buspreferido.push({ label: 'Bajo confort: demasiados pasajeros por unidad, dificultad de encontrar un asiento, demasiado ruido, etc.', value: '7' });
+        this.buspreferido.push({ label: 'Otra razón. Especifique por favor', value: '8' });
+
+        this.vehiculopreferido.push({ label: 'No existe suficiente oferta de espacios de parqueo en la Universidad de Cuenca', value: '1' });
+        this.vehiculopreferido.push({ label: 'Los parqueaderos de la Universidad de Cuenca son inseguros', value: '2' });
+        this.vehiculopreferido.push({ label: 'Alto costo de parqueo en la Universidad de Cuenca', value: '3' });
+        this.vehiculopreferido.push({ label: 'La oferta de parqueo en los alrededores de la Universidad es deficiente y/o costosa', value: '4' });
+        this.vehiculopreferido.push({ label: 'Adquirir un vehículo es costoso', value: '5' });
+        this.vehiculopreferido.push({ label: 'Inseguridad: alta velocidad, irrespeto señales de tránsito, robos, etc.', value: '6' });
+        this.vehiculopreferido.push({ label: 'Por razones ambientales y/o salud', value: '7' });
+        this.vehiculopreferido.push({ label: 'Otra razón. Especifique por favor', value: '8' });
+
+        this.piepreferido.push({ label: 'La infraestructura de la ciudad no es la adecuada para caminar en su ruta: ausencia de aceras, falta de señalización, etc.', value: '1' });
+        this.piepreferido.push({ label: 'Distancia muy grande entre los orígenes de mis viajes y la Universidad de Cuenca', value: '2' });
+        this.piepreferido.push({ label: 'Falta de servicios en la Universidad para esta actividad: duchas, vestidores, bebederos, etc.', value: '3' });
+        this.piepreferido.push({ label: 'Por razones ambientales y/o salud', value: '4' });
+        this.piepreferido.push({ label: 'Inseguridad: senderos compartidos con medios motorizados, irrespeto señales de tránsito, robos, etc.', value: '5' });
+        this.piepreferido.push({ label: 'Confort: mal clima, falta de vestuario adecuado, etc.', value: '6' });
+        this.piepreferido.push({ label: 'Otra razón. Especifique por favor', value: '7' });
+
+        this.bicicletapreferido.push({ label: 'La infraestructura de la ciudad no es la adecuada para bicicletas en su ruta: ausencia de senderos, falta de señalización, etc.', value: '1' });
+        this.bicicletapreferido.push({ label: 'Distancia muy grande entre los orígenes de mis viajes y la Universidad de Cuenca', value: '2' });
+        this.bicicletapreferido.push({ label: 'Falta de servicios en la Universidad para esta actividad: aparcaderos, duchas, vestidores, bebederos, etc.', value: '3' });
+        this.bicicletapreferido.push({ label: 'Confort: mal clima, falta de vestuario adecuado, etc.', value: '4' });
+        this.bicicletapreferido.push({ label: 'Inseguridad: senderos compartidos con medios motorizados, irrespeto señales de tránsito, robos, etc.', value: '5' });
+        this.bicicletapreferido.push({ label: 'Otra razón. Especifique por favor', value: '6' });
+
+        this.motocicletapreferido.push({ label: 'No existe suficiente oferta de espacios de parqueo en la Universidad de Cuenca', value: '1' });
+        this.motocicletapreferido.push({ label: 'Los parqueaderos de la Universidad de Cuenca son inseguros', value: '2' });
+        this.motocicletapreferido.push({ label: 'Alto costo de parqueo en la Universidad de Cuenca', value: '3' });
+        this.motocicletapreferido.push({ label: 'La oferta de parqueo en los alrededores de la Universidad es deficiente y/o costosa', value: '4' });
+        this.motocicletapreferido.push({ label: 'Adquirir una motocicleta es costoso', value: '5' });
+        this.motocicletapreferido.push({ label: 'Inseguridad: alta velocidad, irrespeto señales de tránsito, robos, etc.', value: '6' });
+        this.motocicletapreferido.push({ label: 'Por razones ambientales y/o salud', value: '7' });
+        this.motocicletapreferido.push({ label: 'Otra razón. Especifique por favor', value: '7' });
+
+
+
+
     }
     formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
     formGroup: FormGroup;
@@ -146,14 +207,14 @@ export class TramitesComponent implements OnInit {
         //this.selectedCar = car;
         overlaypanel.toggle(event);
     }
-    cambio(){
+    cambio() {
         console.log(this.minutos);
         //this.movilidad.desplazamientos1[this.indexDesplazamientosel].fin = 
-       // this.movilidad.desplazamientos1[this.indexDesplazamientosel].inicio;
-       
+        // this.movilidad.desplazamientos1[this.indexDesplazamientosel].inicio;
+
         this.movilidad.desplazamientos1[this.indexDesplazamientosel].fin = new Date(
             this.movilidad.desplazamientos1[this.indexDesplazamientosel].inicio.getTime() + this.minutos * 60000);
-      
+
     }
     iniciarGannt() {
 
@@ -236,33 +297,38 @@ export class TramitesComponent implements OnInit {
     }
 
     drop(event) {
-        console.log(event);
+        //console.log(event);
         if (this.desplazamientodrag) {
             //let draggedCarIndex = this.findIndex(this.desplazamientodrag);
             let desp: Desplazamiento;
-            
+            this.minutos = 5;
             desp = JSON.parse(JSON.stringify(this.desplazamientodrag));
-            console.log(this.movilidad.desplazamientos1.length);
-            if(this.movilidad.desplazamientos1.length==0){
+            console.log(desp);
+            //console.log(this.movilidad.desplazamientos1.length);
+            // console.log(this.sdesplazamientos.indexOf(this.desplazamientodrag));
+            if (this.movilidad.desplazamientos1.length == 0) {
                 desp.inicio = new Date(2005, 1, 4, 5, 0);
-                desp.fin = new Date( desp.inicio.getTime() + this.minutos * 60000);
+
+                desp.fin = new Date(desp.inicio.getTime() + this.minutos * 60000);
                 desp.origen = "Residencia";
-            }else{
-                console.log("si");
-                desp.inicio =  this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length-1].fin;
-                desp.origen =  this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length-1].destino;
+            } else {
+                //  console.log("si");
+                desp.inicio = this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length - 1].fin;
+                //  console.log(desp.inicio);
+                desp.fin = new Date(desp.inicio.getTime() + this.minutos * 60000);
+                desp.origen = this.movilidad.desplazamientos1[this.movilidad.desplazamientos1.length - 1].destino;
             }
-           
+
             this.movilidad.desplazamientos1 = [...this.movilidad.desplazamientos1, desp];
             this.desplazamientosel = desp;
-            this.indexDesplazamientosel= this.movilidad.desplazamientos1.indexOf(desp); 
-            console.log(this.indexDesplazamientosel);
-            console.log(this.movilidad.desplazamientos1);
+            this.indexDesplazamientosel = this.movilidad.desplazamientos1.indexOf(desp);
+            //console.log(this.indexDesplazamientosel);
+            //console.log(this.movilidad.desplazamientos1);
             //this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
             // this.draggedCar = null;
         }
     }
-    seleccionar(index){
+    seleccionar(index) {
         this.desplazamientosel = this.movilidad.desplazamientos1[index];
         this.indexDesplazamientosel = index;
     }
